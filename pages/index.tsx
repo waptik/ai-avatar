@@ -29,7 +29,7 @@ const Home = () => {
 
       setRetry(0);
     }
-    
+
     const finalPrompt = input.replace(/stephane/gi, "waptik")
 
     const response = await fetch("/api/generate", {
