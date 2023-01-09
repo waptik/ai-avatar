@@ -1,5 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
+const bufferToBase64 = (buffer: Buffer) => {
+  const base64 = buffer.toString("base64");
+  return `data:image/png;base64,${base64}`;
+};
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log("Received request");
   //
@@ -27,8 +32,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   // Check for different statuses to send proper payload
   if (response.ok) {
-    const buffer = await response.buffer();
-    res.status(200).json({ image: buffer });
+    const buffer = await (response as any).buffer();
+    // Convert to base64
+    const base64 = bufferToBase64(buffer);
+    // Make sure to change to base64
+    res.status(200).json({ image: base64 });
   } else if (response.status === 503) {
     const json = await response.json();
     res.status(503).json(json);

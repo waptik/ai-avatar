@@ -8,12 +8,10 @@ const Home = () => {
   const maxRetries = 20;
   const [input, setInput] = useState("");
   const [img, setImg] = useState("");
-  // Numbers of retries
   const [retry, setRetry] = useState(0);
-  // Number of retries left
   const [retryCount, setRetryCount] = useState(maxRetries);
-  // Add isGenerating state
   const [isGenerating, setIsGenerating] = useState(false);
+  const [finalPrompt, setFinalPrompt] = useState("");
 
   const generateAction = async () => {
     console.log("Generating...");
@@ -31,13 +29,15 @@ const Home = () => {
 
       setRetry(0);
     }
+    
+    const finalPrompt = input.replace(/stephane/gi, "waptik")
 
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
         "Content-Type": "image/jpeg",
       },
-      body: JSON.stringify({ input }),
+      body: JSON.stringify({ input: finalPrompt }),
     });
 
     const data = await response.json();
@@ -55,6 +55,11 @@ const Home = () => {
       console.log(`Error: ${data.error}`);
       return;
     }
+
+    // Set final prompt here
+    setFinalPrompt(input);
+    // Remove content from input box
+    setInput("");
     setImg(data.image);
     setIsGenerating(false);
   };
@@ -129,6 +134,12 @@ const Home = () => {
             </div>
           </div>
         </div>
+        {img && (
+          <div className="output-content">
+            <Image src={img} width={512} height={512} alt={input} />
+            <p>{finalPrompt}</p>
+          </div>
+        )}
       </div>
       <div className="badge-container grow">
         <a
