@@ -98,12 +98,12 @@ const Home = () => {
   return (
     <div className="root">
       <Head>
-        <title>TheAvatar | Create your own avatar</title>
+        <title>TheAvatar</title>
       </Head>
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>Create your own avatar</h1>
+            <h1>Turn me into an avatar</h1>
           </div>
           <div className="header-subtitle">
             <h2>
