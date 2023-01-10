@@ -29,8 +29,8 @@ const Home = () => {
 
       setRetry(0);
     }
-    
-    const finalPrompt = input.replace(/stephane/gi, "waptik")
+
+    const finalPrompt = input.replace(/stephane/gi, "waptik");
 
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -106,7 +106,10 @@ const Home = () => {
             <h1>Create your own avatar</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Generate upto 50 avatars of yourself using A.I</h2>
+            <h2>
+              Generate pictures of myself in any style of your choice. Just make
+              sure to refer to me as "waptik" in the prompt
+            </h2>
           </div>
           <div className="prompt-container">
             <input
